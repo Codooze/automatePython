@@ -39,10 +39,20 @@ containers = driver.find_elements("xpath", "//div[@class='teaser__copy-container
 #// driver.find_elements("xpath", "//div[@class='teaser__copy-container']//h3")
 #? //div[@class="teaser__copy-container" ]
 #? //div[@class="teaser__copy-container" ]//h3
+import pandas as pd
 
+titles = []
+subtitles = []
+links = []
 for container in containers:
    title = container.find_element("xpath", ".//h3").text
    subtitle = container.find_element("xpath", ".//p").text
    link = container.find_element("xpath", ".//a").get_attribute("href")
+   titles.append(title)
+   subtitles.append(subtitle) 
+   links.append(link)
 
-#? Automate The News - Exporting Data to a CSV Files
+pd.DataFrame({"title": titles, "subtitle": subtitles, "link": links}).to_csv("news.csv", index=False)
+driver.quit() # close the browser
+
+#? Automate The News - Headless mode
