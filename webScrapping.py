@@ -24,6 +24,13 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
+from datetime import datetime
+import os
+import sys
+
+application_path = os.path.dirname(sys.executable) # to get the path of the python interpreter
+
+now = datetime.now().strftime("%d-%m-%Y %H-%M-%S") # to get the current date and time
 
 webside = "https://www.thesun.co.uk/sport/football"
 path = r"C:\Users\jeyso\chromedriver_win32\chromedriver.exe"
@@ -58,7 +65,9 @@ for container in containers:
    subtitles.append(subtitle) 
    links.append(link)
 
-pd.DataFrame({"title": titles, "subtitle": subtitles, "link": links}).to_csv("headline-headless.csv", index=False)
-driver.quit() # close the browser
+file_name = os.path.join(application_path, f"headline-{now}.csv")
+pd.DataFrame({"title": titles, "subtitle": subtitles, "link": links}).to_csv(file_name, index=False)
 
-#? Automate The News - Headless mode
+
+driver.quit() # close the browser
+#?  Automate The News - Preparing Script to Be Run Everyday
