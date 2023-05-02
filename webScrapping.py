@@ -22,14 +22,20 @@
 #* .//*: select all descendant nodes of the current node
 
 from selenium import webdriver
-import os
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 
 webside = "https://www.thesun.co.uk/sport/football"
 path = r"C:\Users\jeyso\chromedriver_win32\chromedriver.exe"
 
+
+# headless- mode
+
+options = Options()
+options.headless = True
+
 service = Service(executable_path= path)
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=options)
 driver.get(webside)
 
 #? Automate The News - Finding Elements
@@ -52,7 +58,7 @@ for container in containers:
    subtitles.append(subtitle) 
    links.append(link)
 
-pd.DataFrame({"title": titles, "subtitle": subtitles, "link": links}).to_csv("news.csv", index=False)
+pd.DataFrame({"title": titles, "subtitle": subtitles, "link": links}).to_csv("headline-headless.csv", index=False)
 driver.quit() # close the browser
 
 #? Automate The News - Headless mode
