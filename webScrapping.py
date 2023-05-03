@@ -71,3 +71,4 @@ pd.DataFrame({"title": titles, "subtitle": subtitles, "link": links}).to_csv(fil
 
 driver.quit() # close the browser
 #?  Automate The News - Preparing Script to Be Run Everyday
+# pyistaller --onefile filename.py
